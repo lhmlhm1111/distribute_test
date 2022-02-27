@@ -1,0 +1,57 @@
+---
+title: "Rmarkdown_practice"
+author: "HakminLee"
+date: '`r format(Sys.Date())`'
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    toc_depth: 3
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, message=F, warning=F)
+```
+이 문서는 R Markdown을 작성하고 github를 통해 배포하는 연습을 한다.
+
+## DT
+
+먼저 우리가 흔히 사용하는 `mtcar` 데이터의 테이블을 인터렉티브하게 나타내보자.
+
+```{r}
+library(dplyr)
+mtcars %>% 
+  DT::datatable()
+```
+## plotly
+
+`mtcars` 데이터의 산점도를 그리고 ploty로 인터렉티브한 그래프를 생성
+
+```{r}
+library(ggplot2)
+library(plotly)
+
+subtitle <- list(
+  xref = "paper",
+  yref = "paper",
+  yanchor = "bottom",
+  xanchor = "center",
+  align = "left",
+  x = 0.5,
+  y = 1,
+  showarrow = FALSE
+)
+
+p <- mtcars %>% 
+      ggplot(aes(x=mpg, y=hp,
+                 text = paste0('차이름: ', row.names(mtcars), '\n',
+                               'mpg: ', mpg, '\n',
+                               'hp: ', hp))) +
+      geom_point()+
+      theme_bw()
+
+ggplotly(p, tooltip='text') %>% layout(annotation=subtitle)
+```
