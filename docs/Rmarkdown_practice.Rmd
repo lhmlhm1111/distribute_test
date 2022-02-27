@@ -15,7 +15,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = T, message=F, warning=F)
 ```
-이 문서는 R Markdown을 작성하고 github를 통해 배포하는 연습을 한다.
+이 문서는 `R Markdown`을 작성하고 `github`를 통해 배포하는 연습을 한다.
 
 ## DT
 
